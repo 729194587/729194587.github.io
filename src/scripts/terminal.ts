@@ -5,12 +5,21 @@ const scroll = document.querySelector<HTMLDivElement>('.output-scroll')!;
 const input = document.querySelector<HTMLInputElement>('#command-input')!;
 const suggestions = document.querySelector<HTMLDivElement>('#suggestions')!;
 const announcement = document.querySelector<HTMLDivElement>('#announcement')!;
+const form = document.querySelector<HTMLFormElement>('#command-form')!;
 const initialAbout = history.querySelector('.output')!.cloneNode(true);
 const known = [...commands, { name: '/help', label: '使用指南' }, { name: '/clear', label: '清空屏幕' }];
 const inputHistory: string[] = [];
 let historyIndex = 0;
 let draft = '';
 let count = 1;
+let composing = false;
+let feedbackTimer: ReturnType<typeof setTimeout>;
+
+function submissionFeedback() {
+  clearTimeout(feedbackTimer);
+  form.classList.add('is-submitted');
+  feedbackTimer = setTimeout(() => form.classList.remove('is-submitted'), 180);
+}
 
 function say(message: string) { announcement.textContent = message; }
 function closeSuggestions() { suggestions.hidden = true; suggestions.replaceChildren(); }
@@ -31,8 +40,14 @@ function showSuggestions() {
 }
 
 function execute(raw: string, fromInput = false) {
+  submissionFeedback();
   const value = raw.trim();
-  if (!value) return;
+  if (!value) {
+    input.value = '';
+    closeSuggestions();
+    if (fromInput) input.focus({ preventScroll: true });
+    return;
+  }
   const normalized = value.toLowerCase();
   const command = normalized.startsWith('/') ? normalized : `/${normalized}`;
   inputHistory.push(value); historyIndex = inputHistory.length; draft = '';
@@ -47,7 +62,7 @@ function execute(raw: string, fromInput = false) {
     entry.className = 'entry entry-new'; entry.dataset.entry = command;
     const line = document.createElement('div'); line.className = 'command-line';
     line.innerHTML = '<span>visitor<span class="prompt-path">@xingyu:~</span></span><b>❯</b>';
-    const commandText = document.createElement('span'); commandText.textContent = value;
+    const commandText = document.createElement('span'); commandText.textContent = raw;
     const index = document.createElement('span'); index.className = 'entry-index'; index.textContent = String(count).padStart(3, '0');
     line.append(commandText, index); entry.append(line);
     const template = document.getElementById(`content-${command.slice(1)}`);
@@ -77,11 +92,32 @@ function execute(raw: string, fromInput = false) {
   if (fromInput) input.focus({ preventScroll: true });
 }
 
-document.querySelector('#command-form')!.addEventListener('submit', event => { event.preventDefault(); execute(input.value, true); });
+form.addEventListener('submit', event => {
+  event.preventDefault();
+  if (!composing) execute(input.value, true);
+});
+// Only the input row owns click-to-focus; reading and selecting output must stay undisturbed.
+form.addEventListener('click', event => {
+  if (!(event.target as Element).closest('button') && !window.getSelection()?.toString()) {
+    input.focus({ preventScroll: true });
+  }
+});
+input.addEventListener('compositionstart', () => { composing = true; closeSuggestions(); });
+input.addEventListener('compositionend', () => { composing = false; showSuggestions(); });
+form.addEventListener('focusout', () => {
+  requestAnimationFrame(() => {
+    if (!document.querySelector('.input-area')!.contains(document.activeElement)) closeSuggestions();
+  });
+});
 document.addEventListener('click', async event => {
   const target = event.target as Element;
   const button = target.closest<HTMLButtonElement>('[data-command]');
-  if (button?.dataset.command) execute(button.dataset.command);
+  if (button?.dataset.command) {
+    const fromSuggestion = suggestions.contains(button);
+    // Pointer shortcuts on desktop return to the prompt. Touch navigation never summons a keyboard.
+    const focusPrompt = fromSuggestion || (event.detail > 0 && matchMedia('(hover: hover) and (pointer: fine)').matches);
+    execute(button.dataset.command, focusPrompt);
+  }
   const copy = target.closest<HTMLButtonElement>('[data-copy-email]');
   if (copy) {
     try { await navigator.clipboard.writeText(profile.email); copy.textContent = '已复制'; say('邮箱地址已复制。'); }
@@ -89,9 +125,9 @@ document.addEventListener('click', async event => {
   }
   if (!target.closest('.input-area')) closeSuggestions();
 });
-input.addEventListener('input', () => { historyIndex = inputHistory.length; draft = input.value; showSuggestions(); });
+input.addEventListener('input', () => { historyIndex = inputHistory.length; draft = input.value; if (!composing) showSuggestions(); });
 input.addEventListener('keydown', event => {
-  if (event.isComposing) return;
+  if (event.isComposing || composing || event.keyCode === 229) return;
   if (event.key === 'Escape') closeSuggestions();
   if (event.key === 'Tab' && !event.shiftKey && input.value.trim()) {
     const value = input.value.trim().toLowerCase();

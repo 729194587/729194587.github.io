@@ -38,7 +38,7 @@ import { profile, commands, contributions, skills } from '../data/profile';
             </div>
             <div class="input-area">
               <div id="suggestions" aria-label="命令建议" hidden></div>
-              <form id="command-form" autocomplete="off"><label for="command-input"><span>visitor</span><b aria-hidden="true">❯</b><span class="sr-only">输入终端命令</span></label><input id="command-input" name="command" placeholder="输入 /help，或点击快捷命令" autocomplete="off" autocapitalize="off" spellcheck="false" maxlength="150" aria-describedby="input-hint" /><button class="run-button" type="submit" aria-label="执行命令">↵</button></form>
+              <form id="command-form" autocomplete="off"><label for="command-input"><span>visitor</span><b aria-hidden="true">❯</b><span class="sr-only">输入终端命令</span></label><span class="command-field"><input id="command-input" name="command" placeholder="输入 /help，或点击快捷命令" autocomplete="off" autocapitalize="off" spellcheck="false" maxlength="150" aria-describedby="input-hint" enterkeyhint="send" /><span class="input-cursor" aria-hidden="true"></span></span><button class="run-button" type="submit" aria-label="执行命令">↵</button></form>
               <div class="input-hint" id="input-hint"><span><kbd>Tab</kbd> 补全 <span class="hint-separator">/</span> <kbd>↑</kbd><kbd>↓</kbd> 历史</span><span>输入命令，按 <kbd>Enter</kbd></span></div>
             </div>
           </div>

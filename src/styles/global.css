@@ -349,7 +349,7 @@ button:disabled {
 }
 .output-scroll {
   overflow:auto;
-  overscroll-behavior:contain;
+  overscroll-behavior-y:auto;
   scrollbar-width:thin;
   scrollbar-color:#4c5744 transparent;
   flex:1;
@@ -489,6 +489,41 @@ h1>span {
   display:flex;
   align-items:center;
   gap:13px;
+}
+.command-field {
+  display:flex;
+  flex:1;
+  min-width:0;
+  position:relative;
+  align-items:center;
+}
+.input-cursor {
+  display:none;
+  position:absolute;
+  left:0;
+  width:7px;
+  height:15px;
+  background:var(--green);
+  pointer-events:none;
+}
+#command-input:focus:placeholder-shown {
+  caret-color:transparent;
+}
+#command-input:focus:placeholder-shown + .input-cursor {
+  display:block;
+  animation:cursor-blink 1.1s step-end infinite;
+}
+#command-input:focus::placeholder {
+  color:transparent;
+}
+#command-form.is-submitted .run-button {
+  background:#60764b;
+  border-color:#a9c78b;
+  color:#f0f7e8;
+}
+@keyframes cursor-blink {
+  0%, 48% { opacity:1; }
+  49%, 100% { opacity:0; }
 }
 #command-form label {
   display:flex;
