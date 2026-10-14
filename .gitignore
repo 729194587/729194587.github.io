@@ -5,3 +5,9 @@ dist/
 .env.*
 !.env.example
 .DS_Store
+
+# Local visual verification artifacts
+tmp/
+
+# Local source resume; the approved public copy lives in public/resume.pdf.
+/简历.pdf

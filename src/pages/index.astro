@@ -1,65 +1,59 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import ProjectCard from '../components/ProjectCard.astro';
-import { profile, navigation, education, skills } from '../data/profile';
-import { projects } from '../data/projects';
+import { profile, commands, contributions, skills } from '../data/profile';
 ---
-<BaseLayout title={`${profile.name} / ${profile.englishName}`} description={profile.description}>
-  <header class="site-header wrap">
-    <a class="wordmark" href="#about" aria-label="钱星宇，回到个人介绍">XQ<span aria-hidden="true">.</span></a>
-    <nav aria-label="主要导航">
-      {navigation.map(item => <a href={item.href}>{item.label}</a>)}
-    </nav>
-  </header>
-
-  <main id="main" class="wrap" tabindex="-1">
-    <section id="about" class="hero" aria-labelledby="about-title">
-      <p class="eyebrow">{profile.title}</p>
-      <h1 id="about-title">{profile.name}<span lang="en">{profile.englishName}</span></h1>
-      <p class="intro">{profile.about}</p>
-      <p class="focus-line" lang="en">Agent Harness / Context Engineering / Agent Reliability</p>
-      <div class="hero-links">
-        <a class="button" href="#projects">浏览项目 <span aria-hidden="true">↓</span></a>
-        <a class="text-link" href={profile.github}>GitHub <span aria-hidden="true">↗</span></a>
-      </div>
-    </section>
-
-    <section id="projects" class="section" aria-labelledby="projects-title">
-      <div class="section-heading"><p class="eyebrow">Selected Projects</p><h2 id="projects-title">代表项目</h2></div>
-      <div>{projects.map(project => <ProjectCard project={project} />)}</div>
-    </section>
-
-    <section id="education" class="section" aria-labelledby="education-title">
-      <div class="section-heading"><p class="eyebrow">Education</p><h2 id="education-title">教育背景</h2></div>
-      <ol class="education-list">
-        {education.map(item => (
-          <li>
-            <h3>{item.school}</h3>
-            <p>{item.degree}</p>
-            {item.department && <p class="muted">{item.department}</p>}
-            <p class="period">{item.period}</p>
-          </li>
-        ))}
-      </ol>
-    </section>
-
-    <section id="skills" class="section" aria-labelledby="skills-title">
-      <div class="section-heading"><p class="eyebrow">Technical Skills</p><h2 id="skills-title">技术关注</h2></div>
-      <ul class="skills-list">
-        {skills.map(skill => <li><h3 lang="en">{skill.name}</h3><p class="muted">{skill.detail}</p></li>)}
-      </ul>
-    </section>
-
-    <section id="contact" class="section contact" aria-labelledby="contact-title">
-      <div class="section-heading"><p class="eyebrow">Contact</p><h2 id="contact-title">保持联系</h2></div>
-      <div>
-        <p class="contact-intro">欢迎交流项目、技术想法与职业机会。</p>
-        <address>
-          <a class="contact-link" href={`mailto:${profile.email}`}><span>邮箱</span>{profile.email}<span aria-hidden="true">↗</span></a>
-          <a class="contact-link" href={profile.github}><span>GitHub</span>github.com/729194587<span aria-hidden="true">↗</span></a>
-        </address>
-      </div>
-    </section>
-  </main>
-  <footer class="site-footer wrap"><span>© {new Date().getFullYear()} {profile.englishName}</span><a href="#about">回到顶部 ↑</a></footer>
+<BaseLayout title="钱星宇 · Xingyu Qian — Terminal" description={profile.description}>
+  <div class="desktop">
+    <header class="site-header">
+      <a href="/" class="wordmark" aria-label="钱星宇主页"><span class="brand-icon">&gt;_</span><span>Xingyu Qian<span class="wordmark-sub">PERSONAL TERMINAL</span></span></a>
+      <a class="resume-link" href="/resume.pdf" target="_blank" rel="noopener">查看简历 <span aria-hidden="true">↗</span></a>
+    </header>
+    <main id="main">
+      <div class="intro"><span class="eyebrow"><span class="status-dot"></span> A SMALL WINDOW INTO MY WORLD</span><p>从一行命令，认识我。</p></div>
+      <section class="terminal" aria-label="交互式个人终端">
+        <div class="titlebar"><div class="traffic-lights" aria-hidden="true"><i></i><i></i><i></i></div><span class="window-title">xingyu — personal shell</span><span class="shell-label">UTF-8</span></div>
+        <div class="terminal-workspace">
+          <aside class="sidebar" aria-label="快捷命令">
+            <div class="sidebar-heading">EXPLORE <span>⌘</span></div>
+            <nav>{commands.map((command, i) => <button type="button" data-command={command.name} class:list={['nav-command', { 'is-active': i === 0 }]}><span class="nav-number">0{i + 1}</span><span><strong>{command.name}</strong><small>{command.label}</small></span><span class="nav-arrow" aria-hidden="true">↗</span></button>)}</nav>
+            <a class="sidebar-github" href={profile.github} target="_blank" rel="noopener noreferrer" aria-label="访问我的 GitHub 主页（新窗口打开）"><svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.65 7.65 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z" /></svg><span>GitHub<span class="github-handle">@729194587</span></span><span class="github-arrow" aria-hidden="true">↗</span></a>
+            <button class="help-button" data-command="/help"><span>?</span> 使用指南</button>
+          </aside>
+          <div class="terminal-pane">
+            <div class="session-line"><span><span class="status-dot"></span> personal session</span><span>~ / home</span></div>
+            <div class="output-scroll" tabindex="0" aria-label="终端历史，可滚动阅读">
+              <div id="history" aria-label="命令输出历史">
+                <article class="entry welcome-entry" data-entry="/about">
+                  <div class="command-line"><span>visitor<span class="prompt-path">@xingyu:~</span></span><b>❯</b><span>/about</span><span class="entry-index">001</span></div>
+                  <div class="output about-output">
+                    <div class="section-kicker">HELLO, WORLD<span class="accent">.</span></div>
+                    <h1>钱星宇<span>Xingyu Qian</span></h1>
+                    <p class="role">北京大学 <span>/</span> 软件工程硕士研究生</p>
+                    <div class="focus-line"><span>BUILDING WITH</span><p>Agent Harness<br />Context Engineering<br /><span class="muted">&amp;</span> Agent Reliability<span class="text-cursor" aria-hidden="true"></span></p></div>
+                    <p class="about-copy">{profile.about}</p>
+                    <div class="welcome-next"><span>下一站，看看我在构建什么。</span><button data-command="/projects">/projects <span aria-hidden="true">↗</span></button></div>
+                  </div>
+                </article>
+              </div>
+            </div>
+            <div class="input-area">
+              <div id="suggestions" aria-label="命令建议" hidden></div>
+              <form id="command-form" autocomplete="off"><label for="command-input"><span>visitor</span><b aria-hidden="true">❯</b><span class="sr-only">输入终端命令</span></label><span class="command-field"><input id="command-input" name="command" placeholder="输入 /help，或点击快捷命令" autocomplete="off" autocapitalize="off" spellcheck="false" maxlength="150" aria-describedby="input-hint" enterkeyhint="send" /><span class="input-cursor" aria-hidden="true"></span></span><button class="run-button" type="submit" aria-label="执行命令">↵</button></form>
+              <div class="input-hint" id="input-hint"><span><kbd>Tab</kbd> 补全 <span class="hint-separator">/</span> <kbd>↑</kbd><kbd>↓</kbd> 历史</span><span>输入命令，按 <kbd>Enter</kbd></span></div>
+            </div>
+          </div>
+        </div>
+        <div class="statusbar"><span><span class="status-dot"></span> READY <span class="status-divider">/</span> <span id="command-count">1 command</span></span><span>每一次探索，都留下记录 <span class="status-spark">✳</span></span></div>
+      </section>
+      <noscript><div class="no-script">交互终端需要 JavaScript。你仍可<a href="/resume.pdf">阅读完整简历</a>，或通过 <a href={`mailto:${profile.email}`}>{profile.email}</a> 联系我。</div></noscript>
+    </main>
+    <footer class="site-footer"><span>© {new Date().getFullYear()} Xingyu Qian</span><span>Stay curious. Keep building.<span class="footer-mark">↗</span></span></footer>
+  </div>
+  <template id="content-projects"><div class="section-kicker">01 / SELECTED PROJECT</div><div class="output-heading"><div class="project-title"><h2>TinyHarness</h2><a class="repo-link" href="https://github.com/729194587/tiny_harness" target="_blank" rel="noopener noreferrer" aria-label="在 GitHub 查看 TinyHarness 仓库（新窗口打开）" title="在 GitHub 查看仓库"><svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.65 7.65 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z" /></svg><span>GitHub</span><span class="repo-arrow" aria-hidden="true">↗</span></a></div><span class="period">2026.08 — 至今</span></div><p class="project-subtitle">轻量 Coding Agent Harness</p><p class="body-copy">设计并实现轻量 Coding Agent Harness Runtime，以简单 Agent Loop 为核心，围绕工具执行、权限控制、Context Management 与运行时可观测性构建可组合、可测试的 Harness 能力，并通过真实 SWE-bench 任务验证运行行为与成本优化。</p><div class="metrics"><div><strong>95.5<span>%</span></strong><span>Prefix Cache Hit Rate</span><small>固定任务集上的缓存命中率</small></div><div><strong>14<span>/15</span></strong><span>Official Resolved</span><small>筛选后的固定 regression / A/B 集</small></div></div><p class="metric-note">评测范围：23 个 Dev candidate 校准 → 15 个可复现任务。上述结果不代表完整 SWE-bench 榜单成绩。</p><div class="contributions">{contributions.map((item, i) => <section class="contribution"><span class="contribution-number">0{i + 1}</span><div><h3>{item.title}</h3><p>{item.text}</p></div></section>)}</div><div class="output-end">END OF PROJECT <span>·</span> 构建 → 观测 → 验证 → 迭代</div></template>
+  <template id="content-education"><div class="section-kicker">02 / EDUCATION</div><h2>学习的轨迹<span class="accent">.</span></h2><div class="education-list"><section><span class="education-node"></span><div class="education-date">2025.09 — 2028.06（预计）</div><h3>北京大学</h3><p>软件与微电子学院</p><span class="degree">软件工程 · 硕士研究生</span></section><section><span class="education-node"></span><div class="education-date">2021.09 — 2025.06</div><h3>辽宁大学</h3><p>信息学部</p><span class="degree">计算机科学与技术 · 学士学位</span></section></div></template>
+  <template id="content-skills"><div class="section-kicker">03 / TOOLKIT</div><h2>从运行，到可靠运行<span class="accent">.</span></h2><p class="body-copy">围绕 Coding Agent 的设计、实现与评测实践。</p><div class="skill-groups">{skills.map((group, i) => <section><div class="skill-title"><span>0{i + 1}</span><h3>{group.name}</h3></div><div class="tags">{group.items.map(item => <span>{item}</span>)}</div></section>)}</div><p class="output-end">实践入口 <button data-command="/projects">/projects ↗</button></p></template>
+  <template id="content-contact"><div class="section-kicker">04 / GET IN TOUCH</div><h2>让对话继续<span class="accent">.</span></h2><p class="body-copy">关于 Agent、工程实践，或一个值得探索的想法。</p><div class="contact-row"><span>EMAIL</span><a href={`mailto:${profile.email}`}>{profile.email} ↗</a><button data-copy-email aria-label="复制邮箱地址">复制</button></div><div class="contact-row"><span>GITHUB</span><a class="contact-github" href={profile.github} target="_blank" rel="noopener noreferrer" aria-label="访问我的 GitHub 主页（新窗口打开）"><svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.65 7.65 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z" /></svg><span>729194587</span><span aria-hidden="true">↗</span></a></div><a class="document-link" href="/resume.pdf" target="_blank" rel="noopener"><span>↓</span><span>阅读完整简历<small>RESUME / PDF</small></span><span>↗</span></a></template>
+  <template id="content-help"><div class="section-kicker">MANUAL / QUICK START</div><h2>选择一条命令，开始探索。</h2><p class="body-copy">输入命令并按 Enter，或直接点击下面的命令。每次执行都会追加一段输出，向上滚动可阅读之前的记录。</p><div class="help-list">{commands.map(command => <button data-command={command.name}><code>{command.name}</code><span>{command.hint} ↗</span></button>)}<button data-command="/clear"><code>/clear</code><span>清空屏幕，重新开始 ↗</span></button></div><p class="body-copy help-footnote">Tab 补全命令 · ↑ / ↓ 浏览输入历史 · Esc 关闭建议<br />也可以省略命令开头的 /。本终端仅用于浏览主页，不执行系统命令。</p></template>
+  <div id="announcement" class="sr-only" role="status" aria-live="polite"></div>
+  <script src="../scripts/terminal.ts"></script>
 </BaseLayout>
