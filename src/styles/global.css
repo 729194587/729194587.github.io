@@ -265,21 +265,49 @@ button:disabled {
 .nav-command.is-active .nav-arrow {
   opacity:1;
 }
-.sidebar-note {
+.sidebar-github {
   margin-top:auto;
+  margin-bottom:15px;
   display:flex;
-  gap:11px;
-  padding:24px 12px 15px;
-  color:#858f7b;
+  align-items:center;
+  gap:10px;
+  padding:12px;
+  border:1px solid transparent;
+  border-radius:5px;
+  color:#a4b496;
+  font:11px var(--mono);
+  transition:background .15s, border-color .15s, color .15s;
 }
-.sidebar-note p {
-  font-size:11px;
-  line-height:1.9;
-  margin:0;
+.sidebar-github:hover {
+  background:#303a29;
+  border-color:#47563a;
+  color:#d2e8b6;
 }
-.tiny-prompt {
-  font:18px var(--mono);
-  color:#b2c69c;
+.github-handle {
+  display:block;
+  margin-top:5px;
+  color:#929e88;
+  font-size:9px;
+}
+.github-arrow {
+  margin-left:auto;
+}
+.contact-github {
+  display:inline-flex;
+  align-items:center;
+  gap:9px;
+  border-radius:3px;
+  transition:color .15s;
+}
+.contact-github:hover {
+  color:var(--green);
+}
+.contact-github:hover span:first-of-type {
+  text-decoration:underline;
+  text-underline-offset:4px;
+}
+.sidebar-github svg,.contact-github svg {
+  flex-shrink:0;
 }
 .help-button {
   background:transparent;
@@ -1048,7 +1076,7 @@ h3 {
     padding:9px 10px;
     display:block;
   }
-  .sidebar-heading,.sidebar-note,.help-button {
+  .sidebar-heading,.sidebar-github,.help-button {
     display:none;
   }
   .sidebar nav {

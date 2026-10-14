@@ -3,6 +3,7 @@ export const profile = {
   name: '钱星宇', englishName: 'Xingyu Qian',
   description: '钱星宇，北京大学软件工程硕士研究生。关注 Agent Harness、Coding Agent Runtime、Context Engineering 与 Agent Reliability。',
   email: '729194587@qq.com', phone: '156 1166 1789',
+  github: 'https://github.com/729194587', // Profile link supplied by the owner.
   about: '关注 Agent Harness、Context Engineering 与 Agent Reliability，具备 Coding Agent Runtime 的设计、实现与评测实践。重点关注长程 Agent 中的上下文管理、故障恢复、任务验证与运行时可观测性。',
 };
 export const commands = [
