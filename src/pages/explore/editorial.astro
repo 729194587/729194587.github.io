@@ -1,0 +1,63 @@
+---
+import Layout from '../../layouts/ExplorationLayout.astro';
+import { profile, education, skills } from '../../data/profile';
+import { projects } from '../../data/projects';
+---
+<Layout title="01 · 学术编辑部" direction="editorial">
+  <div class="paper">
+    <header class="masthead"><a href="#main">XINGYU QIAN <span>个人档案</span></a><nav aria-label="页面导航"><a href="#work">项目</a><a href="#background">背景</a><a href="#contact">联系 ↗</a></nav></header>
+    <main id="main" tabindex="-1">
+      <section class="cover" aria-labelledby="name">
+        <div class="cover-meta"><span>软件工程 / SOFTWARE ENGINEERING</span><span>北京大学 · 硕士在读</span></div>
+        <h1 id="name">{profile.name}<span lang="en">Xingyu Qian<span class="period">.</span></span></h1>
+        <div class="cover-bottom"><p class="lede">在模型与行动之间，<br/>探索可靠的 <em>Agent 系统。</em></p><div class="bio"><p>{profile.about}</p><a href="#work">阅读项目档案 <span>↓</span></a></div></div>
+      </section>
+      <section id="work" class="work" aria-labelledby="work-title">
+        <div class="section-line"><h2 id="work-title">01 / 项目档案</h2><span>SELECTED WORK</span></div>
+        {projects.map(project=><article class="feature"><div class="feature-title"><p class="kicker">CODING AGENT HARNESS</p><h3><a href={project.url}>{project.name} <span>↗</span></a></h3><p>{project.description}</p><a class="repo" href={project.url}>在 GitHub 查看项目 ↗</a></div><div class="index"><p class="kicker">项目涉及的主题</p>{project.tags.map((tag,i)=><div><span>0{i+1}</span><span>{tag}</span></div>)}</div></article>)}
+      </section>
+      <div class="lower" id="background">
+        <section aria-labelledby="edu-title"><div class="section-line"><h2 id="edu-title">02 / 教育背景</h2></div>{education.map(item=><article class="school"><p class="kicker">{item.period}</p><h3>{item.school}</h3><p>{item.degree}</p>{item.department&&<p class="muted">{item.department}</p>}</article>)}</section>
+        <section aria-labelledby="focus-title"><div class="section-line"><h2 id="focus-title">03 / 技术关注</h2></div><ul class="focus">{skills.map(skill=><li><h3>{skill.name}</h3><p>{skill.detail}</p></li>)}</ul></section>
+      </div>
+      <footer id="contact"><p class="kicker">下一段对话 / CONTACT</p><div class="signoff"><h2>从一个想法开始。</h2><a href={`mailto:${profile.email}`}>{profile.email} ↗</a></div><div class="colophon"><span>钱星宇 / Xingyu Qian</span><a href={profile.github}>GitHub ↗</a><a href="#main">回到页首 ↑</a></div></footer>
+    </main>
+  </div>
+</Layout>
+<style>
+  :global(body) { background:#f4f0e7; color:#27231f; }
+  .paper { width:min(1180px,calc(100% - 100px)); margin:auto; }
+  .masthead { display:flex; justify-content:space-between; align-items:center; padding:28px 0; border-bottom:2px solid #27231f; gap:20px; }
+  .masthead>a { letter-spacing:.06em; font-size:15px; font-weight:700; text-decoration:none; }
+  .masthead span { font-size:11px; font-weight:400; margin-left:14px; }
+  nav { display:flex; gap:26px; font-size:13px; } nav a { text-decoration:none; }
+  .cover { padding:25px 0 62px; }
+  .cover-meta,.section-line,.colophon { display:flex; justify-content:space-between; gap:20px; font-size:11px; letter-spacing:.06em; }
+  .cover-meta { color:#696158; }
+  h1 { font-family:Georgia,'Songti SC','SimSun',serif; font-weight:400; font-size:clamp(62px,8.4vw,112px); letter-spacing:-.045em; margin:58px 0 42px; }
+  h1>span { display:block; font-size:1.12em; letter-spacing:-.07em; margin-top:10px; }
+  .period,em { color:#a4422b; } em { font-style:normal; }
+  .cover-bottom { display:grid; grid-template-columns:1.1fr 1fr; gap:90px; align-items:start; }
+  .lede { font-family:Georgia,'Songti SC','SimSun',serif; font-size:clamp(23px,2.5vw,33px); line-height:1.6; }
+  .bio { max-width:420px; font-size:14px; line-height:1.9; } .bio a { display:flex; justify-content:space-between; margin-top:22px; padding-bottom:8px; border-bottom:1px solid #b7aea2; text-decoration:none; }
+  .section-line { border-top:1px solid #27231f; padding-top:16px; align-items:center; }
+  .section-line h2 { font-size:12px; font-weight:500; letter-spacing:.1em; }
+  .section-line>span { color:#696158; }
+  .feature { display:grid; grid-template-columns:1.5fr 1fr; gap:80px; padding:42px 0 64px; }
+  .kicker { font-size:10px; color:#75675a; letter-spacing:.09em; }
+  .feature h3 { font:400 clamp(36px,4.8vw,62px)/1.2 Georgia,serif; letter-spacing:-.06em; margin:14px 0 20px; }
+  .feature h3 a { text-decoration:none; } .feature h3 span { font:24px sans-serif; color:#a4422b; }
+  .feature-title>p:not(.kicker) { max-width:510px; font-size:15px; }
+  .repo { display:inline-block; margin-top:26px; font-size:12px; }
+  .index { border-left:1px solid #c9bfb1; padding-left:28px; }
+  .index>p { margin-bottom:16px; }
+  .index>div { border-bottom:1px solid #d9d0c3; padding:9px 0; display:flex; gap:26px; font:13px/1.7 Consolas,monospace; }
+  .index>div span:first-child { color:#a4422b; font-size:10px; }
+  .lower { display:grid; grid-template-columns:1fr 1fr; gap:80px; }
+  .school { padding:26px 0; border-bottom:1px solid #d9d0c3; } .school h3 { font:400 26px/1.4 'Songti SC','SimSun',serif; margin:9px 0; } .school>p:not(.kicker) { font-size:13px; }
+  .muted { color:#696158; } .focus li { padding:22px 0; border-bottom:1px solid #d9d0c3; } .focus h3 { font:400 21px/1.3 Georgia,serif; } .focus p { font-size:12px; color:#696158; margin-top:7px; }
+  footer { margin-top:72px; border-top:2px solid #27231f; padding:24px 0; }
+  .signoff { display:flex; justify-content:space-between; gap:30px; align-items:center; margin:28px 0 50px; } .signoff h2 { font:400 clamp(24px,3vw,38px)/1.4 'Songti SC','SimSun',serif; } .signoff>a { font-size:18px; color:#a4422b; overflow-wrap:anywhere; }
+  .colophon { border-top:1px solid #c9bfb1; padding-top:20px; }.colophon a { font-size:11px; }
+  @media(max-width:700px) { .paper { width:calc(100% - 40px); } .masthead { padding:20px 0; } .masthead span { display:none; } nav { gap:16px; font-size:12px; } .cover-meta { font-size:9px; flex-wrap:wrap; gap:6px; } h1 { margin:38px 0 30px; font-size:clamp(52px,12vw,82px); } h1>span { font-size:.94em; } .cover-bottom,.feature,.lower { grid-template-columns:1fr; gap:30px; } .cover { padding-bottom:42px; } .bio { max-width:none; } .feature { padding:30px 0 40px; } .index { border-left:0; padding-left:0; } .signoff { display:block; } .signoff>a { display:inline-block; margin-top:20px; font-size:16px; } footer { margin-top:44px; } .colophon { gap:12px; flex-wrap:wrap; } }
+</style>

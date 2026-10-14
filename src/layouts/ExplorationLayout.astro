@@ -1,0 +1,47 @@
+---
+interface Props { title: string; direction?: string; }
+const { title, direction } = Astro.props;
+const options = [{id:'editorial',label:'01 编辑部'},{id:'systems',label:'02 实验室'},{id:'canvas',label:'03 开放画布'}];
+---
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="description" content="钱星宇个人主页 · 视觉设计探索" />
+    <title>{title} · 钱星宇</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    <a class="skip" href="#main">跳转到主要内容</a>
+    <div class="exploration-bar">
+      <a href="/explore/" class="exploration-home">设计探索 <span>/</span></a>
+      <nav aria-label="设计方案切换">{options.map(option=><a href={`/explore/${option.id}/`} aria-current={direction === option.id ? 'page' : undefined}>{option.label}</a>)}</nav>
+      <a href="/" class="original">原版 ↗</a>
+    </div>
+    <slot />
+  </body>
+</html>
+<style is:global>
+  * { box-sizing: border-box; }
+  html { scroll-padding-top: 24px; }
+  body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif; line-height: 1.7; }
+  h1,h2,h3,p { margin: 0; }
+  h1,h2,h3 { line-height: 1.15; }
+  a { color: inherit; text-underline-offset: 5px; }
+  a:focus-visible,summary:focus-visible { outline: 3px solid currentColor; outline-offset: 5px; }
+  a:hover { text-decoration-thickness: 2px; }
+  ul,ol { padding: 0; margin: 0; list-style: none; }
+  svg { display: block; max-width: 100%; }
+  address { font-style: normal; }
+  .skip { position: absolute; top: -100px; left: 20px; z-index: 100; background: white; color: black; padding: 12px; }
+  .skip:focus { top: 8px; }
+  .exploration-bar { position: relative; z-index: 10; background: #f8f8f8; color: #343434; border-bottom: 1px solid #dedede; padding: 9px 24px; display: flex; align-items: center; gap: 24px; font: 12px/1.5 -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; }
+  .exploration-bar a { text-decoration: none; padding: 7px 4px; }
+  .exploration-home span { margin-left: 20px; color: #999; }
+  .exploration-bar nav { display: flex; gap: 22px; flex-wrap: wrap; }
+  .exploration-bar [aria-current] { font-weight: 700; box-shadow: 0 2px #222; }
+  .original { margin-left: auto; }
+  @media(max-width:600px) { .exploration-bar { padding: 8px 16px; gap: 8px; flex-wrap: wrap; } .exploration-home span { display:none; } .exploration-bar nav { gap:10px; } .original { display:none; } }
+</style>
