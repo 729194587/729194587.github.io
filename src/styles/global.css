@@ -1,0 +1,75 @@
+:root {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  color: #252e2b;
+  background: #f7f8f5;
+  font-synthesis: none;
+  line-height: 1.75;
+  --muted: #626d66;
+  --accent: #315e48;
+  --line: #dce2da;
+}
+* { box-sizing: border-box; }
+body { margin: 0; }
+a { color: inherit; text-underline-offset: 5px; }
+a:hover { color: var(--accent); }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; border-radius: 2px; }
+h1, h2, h3, p { margin: 0; }
+h1, h2, h3 { line-height: 1.3; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+section { scroll-margin-top: 28px; }
+.wrap { width: min(1040px, calc(100% - 96px)); margin-inline: auto; }
+.site-header { display: flex; align-items: center; justify-content: space-between; min-height: 100px; border-bottom: 1px solid var(--line); gap: 24px; }
+.wordmark { font-size: 25px; font-weight: 750; letter-spacing: -1.5px; text-decoration: none; }
+.wordmark span { color: var(--accent); }
+nav { display: flex; gap: 30px; flex-wrap: wrap; }
+nav a { font-size: 14px; text-decoration: none; padding-block: 10px; }
+.hero { padding: 96px 0 90px; max-width: 820px; }
+.eyebrow { color: var(--accent); font-size: 12px; letter-spacing: .09em; font-weight: 600; }
+h1 { font-size: clamp(42px, 6vw, 64px); letter-spacing: -.04em; margin: 24px 0; font-weight: 650; }
+h1 span { display: block; color: var(--muted); font-size: .57em; font-weight: 400; letter-spacing: -.02em; margin-top: 12px; }
+.intro { max-width: 640px; font-size: 18px; line-height: 1.95; }
+.focus-line { font-size: 12px; color: var(--muted); margin-top: 22px; line-height: 2; }
+.hero-links { display: flex; align-items: center; gap: 28px; margin-top: 32px; }
+.button { display: inline-flex; gap: 30px; background: var(--accent); color: white; padding: 11px 20px; border-radius: 4px; text-decoration: none; font-size: 14px; }
+.button:hover { background: #244b37; color: white; }
+.text-link { font-size: 14px; font-weight: 500; }
+.section { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 32px; padding-block: 52px; border-top: 1px solid var(--line); }
+.section-heading h2 { margin-top: 9px; font-size: 23px; font-weight: 600; }
+.project-card { background: #eef2eb; border: 1px solid #dce4d7; border-radius: 6px; padding: 30px; }
+.project-card h3 { font-size: 28px; margin-top: 12px; letter-spacing: -.03em; }
+.project-card h3 a { text-decoration: none; }
+.project-card h3 span { font-size: 20px; color: var(--accent); }
+.project-description { margin-top: 18px; max-width: 590px; }
+.tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 22px 0 26px; }
+.tags li { font-size: 11px; padding: 3px 9px; border: 1px solid #cbd6c5; border-radius: 3px; color: #4a5e4c; }
+.education-list li + li { border-top: 1px solid var(--line); margin-top: 26px; padding-top: 26px; }
+.education-list h3 { font-size: 20px; margin-bottom: 8px; }
+.muted { color: var(--muted); font-size: 14px; }
+.period { color: var(--muted); font-size: 13px; margin-top: 12px; font-variant-numeric: tabular-nums; }
+.skills-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 22px; }
+.skills-list h3 { font-size: 16px; font-weight: 600; margin-bottom: 7px; }
+.contact-intro { margin-bottom: 22px; }
+address { font-style: normal; }
+.contact-link { display: flex; gap: 18px; padding-block: 12px; border-bottom: 1px solid var(--line); text-decoration: none; font-size: 15px; overflow-wrap: anywhere; }
+.contact-link > span:first-child { min-width: 54px; color: var(--muted); font-size: 13px; }
+.contact-link > span:last-child { margin-left: auto; }
+.site-footer { border-top: 1px solid var(--line); display: flex; justify-content: space-between; gap: 20px; padding-block: 28px; color: var(--muted); font-size: 12px; }
+.site-footer a { text-decoration: none; }
+.skip-link { position: absolute; top: -100px; left: 16px; padding: 12px 18px; background: white; z-index: 10; }
+.skip-link:focus { top: 12px; }
+@media (max-width: 760px) {
+  .wrap { width: calc(100% - 40px); }
+  .site-header { min-height: 82px; gap: 18px; }
+  nav { gap: 17px; }
+  nav a { font-size: 13px; }
+  .hero { padding: 60px 0; }
+  .intro { font-size: 16px; }
+  .section { grid-template-columns: minmax(0, 1fr); gap: 26px; padding-block: 36px; }
+  .project-card { padding: 24px; }
+}
+@media (max-width: 380px) {
+  nav { gap: 11px; }
+  .skills-list { grid-template-columns: minmax(0, 1fr); }
+  .contact-link { gap: 10px; font-size: 13px; }
+  .contact-link > span:first-child { min-width: 44px; }
+}
