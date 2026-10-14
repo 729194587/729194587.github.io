@@ -7,11 +7,11 @@ export const profile = {
   about: '关注 Agent Harness、Context Engineering 与 Agent Reliability，具备 Coding Agent Runtime 的设计、实现与评测实践。重点关注长程 Agent 中的上下文管理、故障恢复、任务验证与运行时可观测性。',
 };
 export const commands = [
-  { name: '/about', label: '关于我', hint: '认识一下' },
-  { name: '/projects', label: '项目经历', hint: '深入 TinyHarness' },
-  { name: '/education', label: '教育背景', hint: '我的学习历程' },
-  { name: '/skills', label: '技术能力', hint: '从构建到验证' },
-  { name: '/contact', label: '联系我', hint: '开启一段对话' },
+  { name: '/about', label: '关于我', hint: '关于' },
+  { name: '/projects', label: '项目经历', hint: '项目' },
+  { name: '/education', label: '教育背景', hint: '教育' },
+  { name: '/skills', label: '技术能力', hint: '技能' },
+  { name: '/contact', label: '联系我', hint: '联系' },
 ];
 export const contributions = [
   { title: 'Runtime 架构与执行控制', text: '围绕最小 Agent Loop 构建轻量 Coding Agent Harness，实现 Function Calling、Tool Execution、Permission、Hooks 与 Skills 等运行时能力，由 Runtime 统一管理工具执行与权限约束。' },
